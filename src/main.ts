@@ -129,7 +129,7 @@ export default class InvestmentResearchPlugin extends Plugin {
 			id: 'create-sector-research',
 			name: '创建板块研究',
 			callback: () => {
-				new SectorResearchModal(this.app).open();
+				new SectorResearchModal(this.app, this.settings).open();
 			},
 		});
 
@@ -538,7 +538,10 @@ class StockResearchModal extends Modal {
 class SectorResearchModal extends Modal {
 	nameInput!: HTMLInputElement;
 
-	constructor(app: App) {
+	constructor(
+		app: App,
+		private settings: InvestmentResearchSettings
+	) {
 		super(app);
 	}
 
@@ -570,8 +573,10 @@ class SectorResearchModal extends Modal {
 
 						try {
 							// 创建板块研究文件夹
-							const folderPath = `/home/FR-IDE-FOLDERS/1.研究/0.板块/${sectorName}`;
-							await this.app.vault.createFolder(folderPath);
+							const rootPath = this.settings.folderStructure.rootPath;
+							const sectorPath = this.settings.folderStructure.sectorResearchPath;
+							const fullPath = rootPath ? `${rootPath}/${sectorPath}/${sectorName}` : `${sectorPath}/${sectorName}`;
+							await this.app.vault.createFolder(fullPath);
 
 							// 创建关键文档
 							const files = [
@@ -583,7 +588,7 @@ class SectorResearchModal extends Modal {
 
 							for (const file of files) {
 								const content = `# ${file.title}\n\n> 创建时间：${new Date().toISOString()}\n\n`;
-								await this.app.vault.create(`${folderPath}/${file.name}`, content);
+								await this.app.vault.create(`${fullPath}/${file.name}`, content);
 							}
 
 							new Notice(`${sectorName}板块研究创建成功`);
@@ -625,7 +630,7 @@ class InvestmentResearchSettingTab extends PluginSettingTab {
 			.setDesc('投研知识库的根文件夹路径')
 			.addText((text) =>
 				text
-					.setPlaceholder('/home/FR-IDE-FOLDERS')
+					.setPlaceholder('投研知识库')
 					.setValue(this.plugin.settings.folderStructure.rootPath)
 					.onChange(async (value) => {
 						this.plugin.settings.folderStructure.rootPath = value;

@@ -4,7 +4,7 @@ export type { InvestmentResearchSettings } from './types';
 
 export const DEFAULT_SETTINGS: InvestmentResearchSettings = {
 	folderStructure: {
-		rootPath: '/home/FR-IDE-FOLDERS',
+		rootPath: '',
 		dailyReviewPath: '0.周期复盘/0.日度复盘',
 		weeklyReviewPath: '0.周期复盘/1.周度复盘',
 		topicReviewPath: '0.周期复盘/2.专题复盘',
