@@ -1,0 +1,10 @@
+{
+  "id": "investment-research",
+  "name": "Investment Research",
+  "version": "0.1.0",
+  "minAppVersion": "1.5.0",
+  "description": "Professional investment research IDE plugin for fundamental analysis and knowledge management. Features include automated company research folders, Key Drivers tracking, market disagreement analysis, TODO list management, and intelligent tagging.",
+  "author": "SiberiaW",
+  "authorUrl": "https://github.com/SiberiaW",
+  "isDesktopOnly": false
+}
