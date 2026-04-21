@@ -317,7 +317,7 @@ class DateReviewModal extends Modal {
 
 						try {
 							// 使用模板创建文档
-							const content = await this.templateManager.renderTemplate('日复盘 - Week.md', {
+							const content = await this.templateManager.renderTemplate('日复盘.md', {
 								date: selectedDate,
 							});
 
